@@ -4,7 +4,7 @@ const Collection = require('./collection.model');
 const getCollectionByDate = async (req, res, next) => {
   try {
     const {date} = req.params; 
-    const collection = await Collection.find({date: date});
+    const collection = await Collection.findOne({date: date});
     return res.status(200).json(collection.list);
   }
   catch(error) {
@@ -18,7 +18,6 @@ const postCollection = async (req, res, next) => {
     const data = {...req.body} 
     const collectionToCreate = new Collection(data);
     const created = await collectionToCreate.save();
-
     return res.status(201).json(created);
   }
   catch(error) {
@@ -30,8 +29,8 @@ const postCollection = async (req, res, next) => {
 const deleteCollectionByDate = async (req, res, next) => {
   try {
     const { date } = req.params;
-    const collection = await Collection.find({date: date});
-    const  deleted = await Collection.findByIdAndDelete(collection._id);
+    const collection = await Collection.findOne({date: date});
+    const  deleted = await Collection.findByIdAndDelete(collection.id);
     return res.status(200).json(deleted)
   }
   catch(error) {

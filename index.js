@@ -14,7 +14,8 @@ const db = require('./src/utils/db');
 db.connectDB();
 
 //ROUTES IMPORT
-const titlesRoutes = require('./src/api/titles/titles.routes')
+const collectionsRoutes = require('./src/api/collections/collection.routes')
+const titlesRoutes = require('./src/api/titles/title.routes')
 const usersRoutes = require('./src/api/users/user.routes')
 
 
@@ -37,8 +38,8 @@ server.use(passport.session());
 
 
 //SERVER ROUTES
-server.use('/genres', genresRoutes);
-server.use('/sources', sourcesRoutes);
+// server.use('/genres', genresRoutes);
+// server.use('/sources', sourcesRoutes);
 server.use('/users', usersRoutes);
 server.use('/titles', titlesRoutes);
 server.use('/collections', collectionsRoutes);

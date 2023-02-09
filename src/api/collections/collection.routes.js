@@ -1,11 +1,11 @@
 const express = require('express');
 const isAuth = require('../../utils/auth/middlewares/authMiddlewares');
-const controller = require('./title.controllers');
+const controller = require('./collection.controllers');
 const router = express.Router();
 
-router.get('/:date', controller.deleteCollectionByDate);
+router.get('/:date', controller.getCollectionByDate);
 router.post('/create', controller.postCollection);
-router.post('/delete/:date', controller.getCollectionByDate);
+router.delete('/delete/:date', controller.deleteCollectionByDate);
 
 module.exports = router;
 

@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: [true, "userName is required"] 
     },
+    favourites: Array,
+    platforms: Array
   },
   {
     timestamps: true,

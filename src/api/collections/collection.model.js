@@ -12,7 +12,7 @@ const collectionSchema = new mongoose.Schema(
             title: String,
             year: Number,
             imdb_id: String,
-            type: String
+            titleType: String
           }
         ]
       }
