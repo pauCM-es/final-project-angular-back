@@ -1,4 +1,5 @@
 const passport = require('passport');
+const User = require('./user.model')
 
 //REGISTER
 const registerPost = (req, res, next) => {
@@ -73,9 +74,63 @@ const checkSessionGet = (req, res, next) => {
 };
 
 
+//PUT
+const editUser = async (req, res, next) => {
+  try {
+    const fields = {...req.body};
+    const options = { new: true };
+    const edited = await User.findByIdAndUpdate(req.user.id, fields, options)
+    return res.status(200).json(edited);
+  }
+  catch(error) {
+    return next(error);
+  }
+}
+
+
+//DELETE
+const deleteUser = async (req, res, next) => {
+  try {
+    const  deleted = await User.findByIdAndDelete(req.user.id);
+    return res.status(200).json(deleted)
+  }
+  catch(error) {
+    return next(error)
+  }
+}
+
+const favourites = async (req, res, next) => {
+  try {
+
+    let newFavs
+    const { title } = req.params
+
+    if (req.user.favourites.includes(title)) {
+      newFavs = {favourites: req.user.favourites.filter(fav => fav !== title)}
+    } 
+    else {
+      newFavs = {favourites: [...req.user.favourites, title]}
+    }
+    
+    const options = { new: true };
+    const edited = await User.findByIdAndUpdate(req.user.id, newFavs, options)
+
+    const userWithoutPass = edited.toObject();
+    Reflect.deleteProperty(userWithoutPass, 'password');
+    return res.status(200).json(userWithoutPass);
+
+  }
+  catch (error){
+    return next(error)
+  }
+}
+
 module.exports = {
   registerPost,
   loginPost,
   logoutPost,
-  checkSessionGet
+  checkSessionGet,
+  editUser,
+  deleteUser,
+  favourites
 }

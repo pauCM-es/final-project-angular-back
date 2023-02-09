@@ -14,7 +14,8 @@ const db = require('./src/utils/db');
 db.connectDB();
 
 //ROUTES IMPORT
-const projectsRoutes = require('./src/api/projects/project.routes')
+const collectionsRoutes = require('./src/api/collections/collection.routes')
+const titlesRoutes = require('./src/api/titles/title.routes')
 const usersRoutes = require('./src/api/users/user.routes')
 
 
@@ -37,8 +38,11 @@ server.use(passport.session());
 
 
 //SERVER ROUTES
+// server.use('/genres', genresRoutes);
+// server.use('/sources', sourcesRoutes);
 server.use('/users', usersRoutes);
-server.use('/projects', projectsRoutes);
+server.use('/titles', titlesRoutes);
+server.use('/collections', collectionsRoutes);
 
 server.use('*', (req, res, next) => {{
   return res.status(404).json("No se encuentra la URL. Prueba con otra URL")
