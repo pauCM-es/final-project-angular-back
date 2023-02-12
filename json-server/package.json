@@ -8,7 +8,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "json-server":"json-server --watch db.json"
+    "json-server":"json-server --watch db.json",
+    "json-server-extra":"json-server --watch .~db.json"
   },
   "keywords": [],
   "author": "",
